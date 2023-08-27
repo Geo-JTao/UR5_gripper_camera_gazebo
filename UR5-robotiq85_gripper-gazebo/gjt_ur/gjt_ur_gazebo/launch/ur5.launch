@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="limited" default="false"  doc="If true, limits joint range [-PI, PI] on all joints." />
+  <arg name="paused" default="false" doc="Starts gazebo in paused mode" />
+  <arg name="gui" default="true" doc="Starts gazebo gui" />
+  
+  <!-- startup simulated world -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" default="worlds/empty.world"/>
+    <arg name="paused" value="$(arg paused)"/>
+    <arg name="gui" value="$(arg gui)"/>
+  </include>
+
+  <!-- send robot urdf to param server -->
+  <include file="$(find gjt_ur_description)/launch/ur5_upload_robotiq85_gripper.launch">
+    <!--<include file="$(find gjt_ur_description)/launch/ur5_upload.launch">-->
+    <arg name="limited" value="$(arg limited)"/>
+  </include>
+  
+  <!-- push robot_description to factory and spawn robot in gazebo -->
+  <node name="spawn_gazebo_model" pkg="gazebo_ros" type="spawn_model" args="-urdf -param robot_description -model robot -z 0.8" respawn="false" output="screen" />
+
+  <include file="$(find gjt_ur_gazebo)/launch/controller_utils.launch"/>
+
+  <!-- start this controller -->
+  <rosparam file="$(find gjt_ur_gazebo)/controller/arm_controller_ur5.yaml" command="load"/>
+  <!--<rosparam file="$(find dh_robotics_ag95_gazebo)/controller/gripper_controller_dh_robotics.yaml" command="load"/>-->
+  <rosparam file="$(find robotiq_85_gazebo)/controller/gripper_controller_robotiq.yaml" command="load"/>
+  
+  <node name="arm_controller_spawner" pkg="controller_manager" type="controller_manager" args="spawn arm_controller gripper" respawn="false" output="screen"/>
+  
+  <!-- load other controllers -->
+  <node name="ros_control_controller_manager" pkg="controller_manager" type="controller_manager" respawn="false" output="screen" args="load joint_group_position_controller" />
+
+  
+  <!--models-->
+  <node name="table" pkg="gazebo_ros" type="spawn_model" args="-file $(find gjt_ur_gazebo)/urdf/cafe_table/model.sdf -sdf -model table -x 0.0 -y 0.75 -z 0.0" />
+  
+  <!--<node name="long_box" pkg="gazebo_ros" type="spawn_model" args="-file $(find gjt_ur_gazebo)/urdf/long_block.urdf -urdf -model long_box -x -0 -y 1.15 -z 0.8 -Y 2.2" />-->
+  
+  <!--<node name="coke" pkg="gazebo_ros" type="spawn_model" args="-file $(find gjt_ur_gazebo)/urdf/coke_can/model.sdf -sdf -model coke -x -0.5 -y 0.5 -z 1.1 -R 1.57 -Y -0.3665" />-->
+  <node name="dropbox" pkg="gazebo_ros" type="spawn_model" args="-file $(find gjt_ur_gazebo)/urdf/dropbox.urdf -urdf -model dropbox -x 0.6 -y 0.3 -z 0" />
+  <node name="banana" pkg="gazebo_ros" type="spawn_model" args="-file $(find gjt_ur_gazebo)/urdf/banana.urdf -urdf -model banana -x 0.15 -y 0.5 -z 1.1 -R 1.57 -Y 2.2" />
+  <node name="cylinder" pkg="gazebo_ros" type="spawn_model" args="-file $(find gjt_ur_gazebo)/urdf/cylinder.urdf -urdf -model cylinder -x 0 -y 0.5 -z 1.2" />
+  <node name="box" pkg="gazebo_ros" type="spawn_model" args="-file $(find gjt_ur_gazebo)/urdf/block.urdf -urdf -model box -x -0.2 -y 0.5 -z 1.2 -Y 2.2" />
+  
+  <node name="gui_controller" pkg="rqt_joint_trajectory_controller" type="rqt_joint_trajectory_controller" />
+</launch>
