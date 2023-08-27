@@ -20,3 +20,7 @@
 ```
 ## 参考
     https://github.com/Luchuanzhao/UR5-robotiq85_gripper-gazebo
+## TODO
+    配置Moveit，结合代码控制机械臂移动；
+    加入视觉算法，自适应抓取
+    接入Chatgpt，交互式对话，无需自己code达到任务级抓取效果
