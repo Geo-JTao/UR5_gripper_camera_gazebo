@@ -1,0 +1,9 @@
+float64 grasppose_x
+float64 grasppose_y
+float64 grasppose_z
+float64 grasppose_R
+float64 grasppose_P
+float64 grasppose_Y
+---
+bool success
+

@@ -1,0 +1,44 @@
+<?xml version="1.0" ?>
+<sdf version="1.5">
+  <model name="cafe_table">
+    <static>true</static>
+    <link name="link">
+      <collision name="surface">
+        <pose>0 0 0.0755 0 0 0</pose>
+        <geometry>
+          <box>
+            <!-- <size>0.913 0.913 0.04</size> -->
+            <size>1.3695 1.1869 0.004</size>
+          </box>
+        </geometry>
+      </collision>
+
+      <collision name="column">
+        <pose>0 0 0.037 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.042 0.0364 0.074</size>
+          </box>
+        </geometry>
+      </collision>
+
+      <collision name="base">
+        <pose>0 0 0.002 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.56 0.4853 0.004</size>
+          </box>
+        </geometry>
+      </collision>
+
+      <visual name="visual">
+        <geometry>
+          <mesh>
+            <uri>model://cafe_table/meshes/cafe_table.dae</uri>
+            <scale>1.5 1.3 0.1</scale>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+  </model>
+</sdf>

@@ -1,0 +1,9 @@
+<launch>
+ 
+    <rosparam file="$(find gjt_ur_moveit_gazebo)/config/trajectory_control.yaml" command="load"/>
+ 
+    <node name="robot_controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+          output="screen"  args="arm_controller gripper_controller  "/>
+ 
+</launch>
+

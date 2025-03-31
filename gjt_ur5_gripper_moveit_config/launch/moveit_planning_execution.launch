@@ -1,0 +1,14 @@
+<launch>
+ <include file="$(find gjt_ur5_gripper_moveit_config)/launch/move_group.launch">
+  <arg name="publish_monitored_planning_scene" value="true" />
+ </include>
+ <include file="$(find gjt_ur5_gripper_moveit_config)/launch/moveit_rviz.launch">
+    <arg name="rviz_config" value="$(find gjt_ur5_gripper_moveit_config)/launch/moveit.rviz"/>
+  </include>
+ 
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+    <param name="/use_gui" value="false"/> 
+    <rosparam param="/source_list">[/joint_states]</rosparam>
+  </node>
+ 
+</launch>

@@ -1,0 +1,23 @@
+# ALL_controller:
+#   type: position_controllers/JointTrajectoryController
+#   joints:
+#     - shoulder_pan_joint
+#     - shoulder_lift_joint
+#     - elbow_joint
+#     - wrist_1_joint
+#     - wrist_2_joint
+#     - wrist_3_joint
+#     - gripper_finger1_joint
+arm_controller:
+  type: position_controllers/JointTrajectoryController
+  joints:
+    - shoulder_pan_joint
+    - shoulder_lift_joint
+    - elbow_joint
+    - wrist_1_joint
+    - wrist_2_joint
+    - wrist_3_joint
+gripper_controller:
+  type: position_controllers/JointTrajectoryController
+  joints:
+    - gripper_finger1_joint

@@ -1,0 +1,16 @@
+<launch>
+  
+    <!-- Launch Gazebo  -->
+    <include file="$(find gjt_ur_moveit_gazebo)/launch/gjt_ur_moveit_gazebo_world.launch" />
+    <!-- ros_control arm launch file -->
+    <include file="$(find gjt_ur_moveit_gazebo)/launch/gjt_ur_moveit_gazebo_states.launch" />   
+ 
+    <!-- ros_control trajectory control dof arm launch file -->
+    <include file="$(find gjt_ur_moveit_gazebo)/launch/gjt_ur_moveit_trajectory_controller.launch" />
+ 
+    <!-- moveit launch file -->
+    <!-- # 关闭了rviz可视化 -->
+    <include file="$(find gjt_ur5_gripper_moveit_config)/launch/moveit_planning_execution.launch" />
+ 
+</launch>
+
